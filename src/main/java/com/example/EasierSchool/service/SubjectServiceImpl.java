@@ -17,10 +17,10 @@ public class SubjectServiceImpl implements SubjectService{
     @Override
     public Subject addSubject(SubjectRequest subjectRequest) {
 
-        var isSubjectPresent = subjectRepository
+        var isSubjectNamePresent = subjectRepository
                 .findByName(subjectRequest.getName()).isPresent();
 
-        if(isSubjectPresent){
+        if(isSubjectNamePresent){
             throw new CustomServiceException(
                     "Subject with provided name already exists",
                     "SUBJECT_ALREADY_EXISTS"
@@ -30,6 +30,9 @@ public class SubjectServiceImpl implements SubjectService{
         Subject subject = Subject
                 .builder()
                 .name(subjectRequest.getName())
+                .type(subjectRequest.getType())
+                .teacherName(subjectRequest.getTeacherName())
+                .studentGroup(subjectRequest.getStudentGroup())
                 .build();
 
         subjectRepository.save(subject);
