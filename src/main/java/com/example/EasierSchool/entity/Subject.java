@@ -34,5 +34,5 @@ public class Subject {
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
-    private List<TimeSlot> posts;
+    private List<TimeSlot> timeSlots;
 }

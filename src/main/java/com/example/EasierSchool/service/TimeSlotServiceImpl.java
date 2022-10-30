@@ -22,7 +22,7 @@ public class TimeSlotServiceImpl implements TimeSlotService{
     private SubjectRepository subjectRepository;
 
     @Override
-    public TimeSlot addTimeSlot(TimeSlotRequest timeSlotRequest) {
+    public TimeSlotResponse addTimeSlot(TimeSlotRequest timeSlotRequest) {
 
         var subject = subjectRepository
                 .findById(timeSlotRequest.getSubjectId())
@@ -41,7 +41,16 @@ public class TimeSlotServiceImpl implements TimeSlotService{
 
         timeSlotRepository.save(timeSlot);
 
-        return timeSlot;
+        var timeSlotResponse = TimeSlotResponse
+                .builder()
+                .startTime(timeSlotRequest.getStartTime())
+                .endTime(timeSlotRequest.getEndTime())
+                .dayOfWeek(timeSlotRequest.getDayOfWeek())
+                .frequency(timeSlotRequest.getFrequency())
+                .subjectId(subject.getSubjectId())
+                .build();
+
+        return timeSlotResponse;
     }
 
     @Override

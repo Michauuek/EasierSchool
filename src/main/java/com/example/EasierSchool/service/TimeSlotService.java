@@ -7,6 +7,6 @@ import com.example.EasierSchool.model.TimeSlotResponse;
 import java.util.List;
 
 public interface TimeSlotService {
-    TimeSlot addTimeSlot(TimeSlotRequest timeSlotRequest);
+    TimeSlotResponse addTimeSlot(TimeSlotRequest timeSlotRequest);
     List<TimeSlotResponse> getTimeSlots();
 }

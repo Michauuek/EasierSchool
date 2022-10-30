@@ -21,7 +21,7 @@ public class TimeSlotController {
     private TimeSlotService timeSlotService;
 
     @PostMapping("/")
-    public ResponseEntity<TimeSlot> addTimeSlot(@RequestBody TimeSlotRequest timeSlotRequest){
+    public ResponseEntity<TimeSlotResponse> addTimeSlot(@RequestBody TimeSlotRequest timeSlotRequest){
         var timeSlot = timeSlotService
                 .addTimeSlot(timeSlotRequest);
 

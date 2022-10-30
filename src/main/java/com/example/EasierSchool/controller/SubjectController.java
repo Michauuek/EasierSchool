@@ -2,6 +2,7 @@ package com.example.EasierSchool.controller;
 
 import com.example.EasierSchool.entity.Subject;
 import com.example.EasierSchool.model.SubjectRequest;
+import com.example.EasierSchool.model.SubjectResponse;
 import com.example.EasierSchool.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class SubjectController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Subject> getSubjectById(@PathVariable("id") Long subjectId){
+    public ResponseEntity<SubjectResponse> getSubjectById(@PathVariable("id") Long subjectId){
         var subject = subjectService
                 .getSubjectById(subjectId);
 
@@ -40,7 +41,7 @@ public class SubjectController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Subject>> getAllSubjects(){
+    public ResponseEntity<List<SubjectResponse>> getAllSubjects(){
         var subjects = subjectService.getSubjects();
         return new ResponseEntity<>(subjects, HttpStatus.OK);
     }
