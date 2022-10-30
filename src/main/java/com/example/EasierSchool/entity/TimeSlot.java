@@ -4,6 +4,7 @@ package com.example.EasierSchool.entity;
 import com.example.EasierSchool.model.LessonFrequency;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.xml.bind.v2.TODO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,26 +31,13 @@ public class TimeSlot {
     @Column(name = "DAY_OF_WEEK")
     private DayOfWeek dayOfWeek;
 
-    /*@Column(name = "START_TIME")
-    @Temporal(TemporalType.TIME)
-    @DateTimeFormat(style = "hh:mm")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
-    private Date startTime;
-
-    @Column(name = "END_TIME")
-    @Temporal(TemporalType.TIME)
-    @DateTimeFormat(style = "hh:mm")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
-    private Date endTime;*/
-
     @Column(name = "START_TIME")
-    private String startTime;
+    private LocalTime startTime;
     @Column(name = "END_TIME")
-    private String endTime;
+    private LocalTime endTime;
 
-    /*@Column(name = "FREQUENCY")
-    @Enumerated(EnumType.STRING)
-    private LessonFrequency frequency;*/
+    @Column(name = "FREQUENCY")
+    private LessonFrequency frequency;
 
     @ManyToOne
     @JoinColumn(name = "SUBJECT_ID")

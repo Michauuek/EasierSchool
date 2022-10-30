@@ -7,11 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -19,8 +21,13 @@ import java.time.LocalTime;
 @Builder
 public class TimeSlotRequest {
     private DayOfWeek dayOfWeek;
-    private String startTime;
-    private String endTime;
-    //private LessonFrequency frequency;
+    @DateTimeFormat(style = "HH:mm")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
+    private LocalTime startTime;
+    @DateTimeFormat(style = "HH:mm")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="HH:mm")
+    private LocalTime endTime;
+    @Enumerated(EnumType.STRING)
+    private LessonFrequency frequency;
     private Long subjectId;
 }

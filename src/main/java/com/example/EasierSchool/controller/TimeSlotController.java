@@ -4,6 +4,7 @@ import com.example.EasierSchool.entity.Subject;
 import com.example.EasierSchool.entity.TimeSlot;
 import com.example.EasierSchool.model.SubjectRequest;
 import com.example.EasierSchool.model.TimeSlotRequest;
+import com.example.EasierSchool.model.TimeSlotResponse;
 import com.example.EasierSchool.service.TimeSlotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class TimeSlotController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<TimeSlot>> getAllTimeSlots(){
+    public ResponseEntity<List<TimeSlotResponse>> getAllTimeSlots(){
         var timeSlots = timeSlotService.getTimeSlots();
         return new ResponseEntity<>(timeSlots, HttpStatus.OK);
     }

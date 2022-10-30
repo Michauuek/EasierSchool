@@ -3,12 +3,14 @@ package com.example.EasierSchool.service;
 import com.example.EasierSchool.entity.TimeSlot;
 import com.example.EasierSchool.exception.CustomServiceException;
 import com.example.EasierSchool.model.TimeSlotRequest;
+import com.example.EasierSchool.model.TimeSlotResponse;
 import com.example.EasierSchool.repository.SubjectRepository;
 import com.example.EasierSchool.repository.TimeSlotRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TimeSlotServiceImpl implements TimeSlotService{
@@ -33,7 +35,7 @@ public class TimeSlotServiceImpl implements TimeSlotService{
                 .startTime(timeSlotRequest.getStartTime())
                 .endTime(timeSlotRequest.getEndTime())
                 .dayOfWeek(timeSlotRequest.getDayOfWeek())
-                //.frequency(timeSlotRequest.getFrequency())
+                .frequency(timeSlotRequest.getFrequency())
                 .subject(subject)
                 .build();
 
@@ -43,7 +45,19 @@ public class TimeSlotServiceImpl implements TimeSlotService{
     }
 
     @Override
-    public List<TimeSlot> getTimeSlots() {
-        return timeSlotRepository.findAll();
+    public List<TimeSlotResponse> getTimeSlots() {
+        var timeSlots =  timeSlotRepository
+                .findAll()
+                .stream()
+                .map(slot -> TimeSlotResponse
+                        .builder()
+                        .dayOfWeek(slot.getDayOfWeek())
+                        .startTime(slot.getStartTime())
+                        .endTime(slot.getEndTime())
+                        .frequency(slot.getFrequency())
+                        .subjectId(slot.getSubject().getSubjectId())
+                        .build())
+                .collect(Collectors.toList());
+        return timeSlots;
     }
 }
