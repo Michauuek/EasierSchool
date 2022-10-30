@@ -11,4 +11,5 @@ public class SubjectRequest {
     private String type;
     private String teacherName;
     private String studentGroup;
+    private Long roomId;
 }

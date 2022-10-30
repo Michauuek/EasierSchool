@@ -35,4 +35,8 @@ public class Subject {
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<TimeSlot> timeSlots;
+
+    @ManyToOne
+    @JoinColumn(name = "ROOM_ID")
+    private Room room;
 }

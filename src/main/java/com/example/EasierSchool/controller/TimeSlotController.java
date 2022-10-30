@@ -1,8 +1,5 @@
 package com.example.EasierSchool.controller;
 
-import com.example.EasierSchool.entity.Subject;
-import com.example.EasierSchool.entity.TimeSlot;
-import com.example.EasierSchool.model.SubjectRequest;
 import com.example.EasierSchool.model.TimeSlotRequest;
 import com.example.EasierSchool.model.TimeSlotResponse;
 import com.example.EasierSchool.service.TimeSlotService;
@@ -32,5 +29,11 @@ public class TimeSlotController {
     public ResponseEntity<List<TimeSlotResponse>> getAllTimeSlots(){
         var timeSlots = timeSlotService.getTimeSlots();
         return new ResponseEntity<>(timeSlots, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TimeSlotResponse> getTimeSlotById(@PathVariable("id") Long timeSlotId){
+        var timeSlot = timeSlotService.getTimeSlotById(timeSlotId);
+        return new ResponseEntity<>(timeSlot, HttpStatus.OK);
     }
 }

@@ -11,11 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SubjectResponse {
-    private String name;
-    private String type;
-    private String teacherName;
-    private String studentGroup;
+public class RoomResponse {
     private String roomNumber;
-    private List<Long> timeSlotsId;
+    private String departmentName;
+    private List<Long> subjectsId;
 }

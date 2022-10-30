@@ -9,4 +9,5 @@ import java.util.List;
 public interface TimeSlotService {
     TimeSlotResponse addTimeSlot(TimeSlotRequest timeSlotRequest);
     List<TimeSlotResponse> getTimeSlots();
+    TimeSlotResponse getTimeSlotById(Long id);
 }

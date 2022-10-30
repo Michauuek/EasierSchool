@@ -69,4 +69,24 @@ public class TimeSlotServiceImpl implements TimeSlotService{
                 .collect(Collectors.toList());
         return timeSlots;
     }
+
+    @Override
+    public TimeSlotResponse getTimeSlotById(Long id) {
+        var timeSlot = timeSlotRepository
+                .findById(id)
+                .orElseThrow(() -> new CustomServiceException(
+                        "Time Slot with provided id not found",
+                        "NOT_FOUND"));
+
+        var timeSlotResponse = TimeSlotResponse
+                .builder()
+                .startTime(timeSlot.getStartTime())
+                .endTime(timeSlot.getEndTime())
+                .subjectId(timeSlot.getTimeSlotId())
+                .frequency(timeSlot.getFrequency())
+                .dayOfWeek(timeSlot.getDayOfWeek())
+                .build();
+
+        return timeSlotResponse;
+    }
 }

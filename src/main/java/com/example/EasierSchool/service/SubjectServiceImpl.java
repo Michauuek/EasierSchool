@@ -5,6 +5,7 @@ import com.example.EasierSchool.entity.TimeSlot;
 import com.example.EasierSchool.exception.CustomServiceException;
 import com.example.EasierSchool.model.SubjectRequest;
 import com.example.EasierSchool.model.SubjectResponse;
+import com.example.EasierSchool.repository.RoomRepository;
 import com.example.EasierSchool.repository.SubjectRepository;
 import com.example.EasierSchool.repository.TimeSlotRepository;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +24,9 @@ public class SubjectServiceImpl implements SubjectService{
     @Autowired
     private TimeSlotRepository timeSlotRepository;
 
+    @Autowired
+    private RoomRepository roomRepository;
+
     @Override
     public Subject addSubject(SubjectRequest subjectRequest) {
 
@@ -36,12 +40,19 @@ public class SubjectServiceImpl implements SubjectService{
             );
         }
 
+        var room = roomRepository
+                .findById(subjectRequest.getRoomId())
+                .orElseThrow(() -> new CustomServiceException(
+                        "Room with provided id not found",
+                        "NOT_FOUND"));
+
         Subject subject = Subject
                 .builder()
                 .name(subjectRequest.getName())
                 .type(subjectRequest.getType())
                 .teacherName(subjectRequest.getTeacherName())
                 .studentGroup(subjectRequest.getStudentGroup())
+                .room(room)
                 .build();
 
         subjectRepository.save(subject);
@@ -76,6 +87,7 @@ public class SubjectServiceImpl implements SubjectService{
                 .studentGroup(subject.getStudentGroup())
                 .teacherName(subject.getTeacherName())
                 .type(subject.getType())
+                .roomNumber(subject.getRoom().getRoomNumber())
                 .timeSlotsId(subjectTimeSlotsId)
                 .build();
 
@@ -98,6 +110,7 @@ public class SubjectServiceImpl implements SubjectService{
                         .type(subject.getType())
                         .studentGroup(subject.getStudentGroup())
                         .teacherName(subject.getTeacherName())
+                        .roomNumber(subject.getRoom().getRoomNumber())
                         .timeSlotsId(subject
                                 .getTimeSlots()
                                 .stream()

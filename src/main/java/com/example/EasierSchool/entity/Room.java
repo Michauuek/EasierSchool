@@ -1,12 +1,14 @@
 package com.example.EasierSchool.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,4 +26,9 @@ public class Room {
 
     @Column(name = "DEPARTMENT")
     private String departmentName;
+
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Subject> subjects;
+
 }
