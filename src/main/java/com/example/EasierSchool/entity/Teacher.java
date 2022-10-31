@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,4 +24,8 @@ public class Teacher {
 
     @Column(name = "SURNAME")
     private String surname;
+
+    @Column(name = "SUBJECTS")
+    @OneToMany
+    private Set<Subject> subjects;
 }

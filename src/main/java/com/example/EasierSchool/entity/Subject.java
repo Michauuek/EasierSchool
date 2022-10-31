@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,11 +27,12 @@ public class Subject {
     @Column(name = "SUBJECT_TYPE")
     private String type;
 
-    @Column(name = "TEACHER")
-    private String teacherName;
-
     @Column(name = "STUDENT_GROUP")
     private String studentGroup;
+
+    @ManyToOne
+    @JoinColumn(name = "TEACHER_ID")
+    private Teacher teacher;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
@@ -39,4 +41,8 @@ public class Subject {
     @ManyToOne
     @JoinColumn(name = "ROOM_ID")
     private Room room;
+
+    /*
+    TODO change response from Subject to SubjectResponse 
+     */
 }

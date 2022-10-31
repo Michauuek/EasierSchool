@@ -1,18 +1,21 @@
 package com.example.EasierSchool.service;
 
 import com.example.EasierSchool.entity.Subject;
+import com.example.EasierSchool.entity.Teacher;
 import com.example.EasierSchool.entity.TimeSlot;
 import com.example.EasierSchool.exception.CustomServiceException;
 import com.example.EasierSchool.model.SubjectRequest;
 import com.example.EasierSchool.model.SubjectResponse;
 import com.example.EasierSchool.repository.RoomRepository;
 import com.example.EasierSchool.repository.SubjectRepository;
+import com.example.EasierSchool.repository.TeacherRepository;
 import com.example.EasierSchool.repository.TimeSlotRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +29,9 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @Override
     public Subject addSubject(SubjectRequest subjectRequest) {
@@ -46,11 +52,19 @@ public class SubjectServiceImpl implements SubjectService{
                         "Room with provided id not found",
                         "NOT_FOUND"));
 
+        log.info("Searching for teachers with  provided id");
+
+        var teacher = teacherRepository
+                .findById(subjectRequest.getTeacherId())
+                .orElseThrow(() -> new CustomServiceException(
+                        "Teacher with provided id not found",
+                        "NOT_FOUND"));
+
         Subject subject = Subject
                 .builder()
                 .name(subjectRequest.getName())
                 .type(subjectRequest.getType())
-                .teacherName(subjectRequest.getTeacherName())
+                .teacher(teacher)
                 .studentGroup(subjectRequest.getStudentGroup())
                 .room(room)
                 .build();
@@ -85,7 +99,7 @@ public class SubjectServiceImpl implements SubjectService{
                 .builder()
                 .name(subject.getName())
                 .studentGroup(subject.getStudentGroup())
-                .teacherName(subject.getTeacherName())
+                .teacherId(subject.getTeacher().getTeacherId())
                 .type(subject.getType())
                 .roomNumber(subject.getRoom().getRoomNumber())
                 .timeSlotsId(subjectTimeSlotsId)
@@ -109,7 +123,7 @@ public class SubjectServiceImpl implements SubjectService{
                         .name(subject.getName())
                         .type(subject.getType())
                         .studentGroup(subject.getStudentGroup())
-                        .teacherName(subject.getTeacherName())
+                        .teacherId(subject.getTeacher().getTeacherId())
                         .roomNumber(subject.getRoom().getRoomNumber())
                         .timeSlotsId(subject
                                 .getTimeSlots()
