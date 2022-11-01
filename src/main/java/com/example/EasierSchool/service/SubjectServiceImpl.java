@@ -34,12 +34,19 @@ public class SubjectServiceImpl implements SubjectService{
     private TeacherRepository teacherRepository;
 
     @Override
-    public Subject addSubject(SubjectRequest subjectRequest) {
+    public SubjectResponse addSubject(SubjectRequest subjectRequest) {
 
         var isSubjectNamePresent = subjectRepository
-                .findByName(subjectRequest.getName()).isPresent();
+                .findByName(subjectRequest.getName()).stream().findAny().isPresent();
 
-        if(isSubjectNamePresent){
+        var isSubjectTeacherPresent = subjectRepository
+                .findByName(subjectRequest.getName())
+                .stream()
+                .filter(subject ->
+                        subject.getTeacher().getTeacherId() == subjectRequest.getTeacherId()
+                ).findFirst().isPresent();
+
+        if(isSubjectNamePresent && isSubjectTeacherPresent){
             throw new CustomServiceException(
                     "Subject with provided name already exists",
                     "SUBJECT_ALREADY_EXISTS"
@@ -71,7 +78,24 @@ public class SubjectServiceImpl implements SubjectService{
 
         subjectRepository.save(subject);
 
-        return subject;
+        var subjectTimeSlotsId = timeSlotRepository
+                .findAll()
+                .stream()
+                .filter(slot -> slot.getSubject().getSubjectId() == subject.getSubjectId())
+                .map(TimeSlot::getTimeSlotId)
+                .collect(Collectors.toList());
+
+        var subjectResponse = SubjectResponse
+                .builder()
+                .name(subject.getName())
+                .studentGroup(subject.getStudentGroup())
+                .teacherId(subject.getTeacher().getTeacherId())
+                .type(subject.getType())
+                .roomId(subject.getRoom().getRoomId())
+                .timeSlotsId(subjectTimeSlotsId)
+                .build();
+
+        return subjectResponse;
     }
 
 
@@ -101,7 +125,7 @@ public class SubjectServiceImpl implements SubjectService{
                 .studentGroup(subject.getStudentGroup())
                 .teacherId(subject.getTeacher().getTeacherId())
                 .type(subject.getType())
-                .roomNumber(subject.getRoom().getRoomNumber())
+                .roomId(subject.getRoom().getRoomId())
                 .timeSlotsId(subjectTimeSlotsId)
                 .build();
 
@@ -124,7 +148,7 @@ public class SubjectServiceImpl implements SubjectService{
                         .type(subject.getType())
                         .studentGroup(subject.getStudentGroup())
                         .teacherId(subject.getTeacher().getTeacherId())
-                        .roomNumber(subject.getRoom().getRoomNumber())
+                        .roomId(subject.getRoom().getRoomId())
                         .timeSlotsId(subject
                                 .getTimeSlots()
                                 .stream()

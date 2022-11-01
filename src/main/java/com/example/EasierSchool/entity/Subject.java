@@ -43,6 +43,6 @@ public class Subject {
     private Room room;
 
     /*
-    TODO change response from Subject to SubjectResponse 
+    TODO change response from Subject to SubjectResponse
      */
 }

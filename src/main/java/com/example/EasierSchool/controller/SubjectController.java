@@ -19,7 +19,7 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @PostMapping("/")
-    public ResponseEntity<Subject> addSubject(@RequestBody SubjectRequest subjectRequest){
+    public ResponseEntity<SubjectResponse> addSubject(@RequestBody SubjectRequest subjectRequest){
         var subject = subjectService
                 .addSubject(subjectRequest);
 

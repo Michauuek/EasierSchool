@@ -16,7 +16,7 @@ public class SubjectResponse {
     private String name;
     private String type;
     private String studentGroup;
-    private String roomNumber;
+    private Long roomId;
     private Long teacherId;
     private List<Long> timeSlotsId;
 }

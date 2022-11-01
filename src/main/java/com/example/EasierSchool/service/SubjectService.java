@@ -7,7 +7,7 @@ import com.example.EasierSchool.model.SubjectResponse;
 import java.util.List;
 
 public interface SubjectService {
-    Subject addSubject(SubjectRequest subjectRequest);
+    SubjectResponse addSubject(SubjectRequest subjectRequest);
     SubjectResponse getSubjectById(Long id);
     void deleteSubjectById(Long id);
     List<SubjectResponse> getSubjects();
