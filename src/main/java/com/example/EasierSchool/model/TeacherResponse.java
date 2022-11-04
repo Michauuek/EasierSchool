@@ -12,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class TeacherResponse {
+    private Long id;
     private String name;
     private String surname;
 }

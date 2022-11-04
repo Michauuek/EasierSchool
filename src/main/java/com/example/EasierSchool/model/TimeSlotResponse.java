@@ -14,6 +14,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 public class TimeSlotResponse {
+    private Long id;
     private DayOfWeek dayOfWeek;
     private LocalTime startTime;
     private LocalTime endTime;

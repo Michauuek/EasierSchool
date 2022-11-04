@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class RoomResponse {
+    private Long id;
     private String roomNumber;
     private String departmentName;
     private List<Long> subjectsId;

@@ -47,14 +47,12 @@ public class TeacherServiceImpl implements TeacherService{
         teacherRepository.save(teacher);
 
 
-
-        var teacherResponse = TeacherResponse
+        return TeacherResponse
                 .builder()
+                .id(teacher.getTeacherId())
                 .name(teacher.getName())
                 .surname(teacher.getSurname())
                 .build();
-
-        return teacherResponse;
     }
 
     @Override
@@ -66,26 +64,26 @@ public class TeacherServiceImpl implements TeacherService{
                         "Teacher with provided id not found",
                         "NOT_FOUND"));
 
-        var teacherResponse = TeacherResponse
+        return TeacherResponse
                 .builder()
+                .id(teacher.getTeacherId())
                 .name(teacher.getName())
                 .surname(teacher.getSurname())
                 .build();
-        return teacherResponse;
     }
 
     @Override
     public List<TeacherResponse> getTeachers() {
 
-        var teachers = teacherRepository
+        return teacherRepository
                 .findAll()
                 .stream()
                 .map(teacher -> TeacherResponse
                         .builder()
+                        .id(teacher.getTeacherId())
                         .name(teacher.getName())
                         .surname(teacher.getSurname())
                         .build()
                 ).collect(Collectors.toList());
-        return teachers;
     }
 }

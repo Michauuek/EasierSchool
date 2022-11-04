@@ -13,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class SubjectResponse {
+    private Long id;
     private String name;
     private String type;
     private String studentGroup;

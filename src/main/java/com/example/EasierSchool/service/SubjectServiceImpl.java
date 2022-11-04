@@ -42,9 +42,9 @@ public class SubjectServiceImpl implements SubjectService{
         var isSubjectTeacherPresent = subjectRepository
                 .findByName(subjectRequest.getName())
                 .stream()
-                .filter(subject ->
+                .anyMatch(subject ->
                         subject.getTeacher().getTeacherId() == subjectRequest.getTeacherId()
-                ).findFirst().isPresent();
+                );
 
         if(isSubjectNamePresent && isSubjectTeacherPresent){
             throw new CustomServiceException(
@@ -85,8 +85,10 @@ public class SubjectServiceImpl implements SubjectService{
                 .map(TimeSlot::getTimeSlotId)
                 .collect(Collectors.toList());
 
-        var subjectResponse = SubjectResponse
+
+        return SubjectResponse
                 .builder()
+                .id(subject.getSubjectId())
                 .name(subject.getName())
                 .studentGroup(subject.getStudentGroup())
                 .teacherId(subject.getTeacher().getTeacherId())
@@ -94,8 +96,6 @@ public class SubjectServiceImpl implements SubjectService{
                 .roomId(subject.getRoom().getRoomId())
                 .timeSlotsId(subjectTimeSlotsId)
                 .build();
-
-        return subjectResponse;
     }
 
 
@@ -119,8 +119,10 @@ public class SubjectServiceImpl implements SubjectService{
 
         log.info("Creating response");
 
-        var subjectResponse = SubjectResponse
+
+        return SubjectResponse
                 .builder()
+                .id(subject.getSubjectId())
                 .name(subject.getName())
                 .studentGroup(subject.getStudentGroup())
                 .teacherId(subject.getTeacher().getTeacherId())
@@ -128,8 +130,6 @@ public class SubjectServiceImpl implements SubjectService{
                 .roomId(subject.getRoom().getRoomId())
                 .timeSlotsId(subjectTimeSlotsId)
                 .build();
-
-        return subjectResponse;
     }
 
     @Override
@@ -139,11 +139,12 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public List<SubjectResponse> getSubjects() {
-        var subjectResponses = subjectRepository
+        return subjectRepository
                 .findAll()
                 .stream()
                 .map(subject -> SubjectResponse
                         .builder()
+                        .id(subject.getSubjectId())
                         .name(subject.getName())
                         .type(subject.getType())
                         .studentGroup(subject.getStudentGroup())
@@ -156,7 +157,5 @@ public class SubjectServiceImpl implements SubjectService{
                                 .collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
-
-        return subjectResponses;
     }
 }

@@ -41,25 +41,25 @@ public class TimeSlotServiceImpl implements TimeSlotService{
 
         timeSlotRepository.save(timeSlot);
 
-        var timeSlotResponse = TimeSlotResponse
+        return TimeSlotResponse
                 .builder()
+                .id(timeSlot.getTimeSlotId())
                 .startTime(timeSlotRequest.getStartTime())
                 .endTime(timeSlotRequest.getEndTime())
                 .dayOfWeek(timeSlotRequest.getDayOfWeek())
                 .frequency(timeSlotRequest.getFrequency())
                 .subjectId(subject.getSubjectId())
                 .build();
-
-        return timeSlotResponse;
     }
 
     @Override
     public List<TimeSlotResponse> getTimeSlots() {
-        var timeSlots =  timeSlotRepository
+        return timeSlotRepository
                 .findAll()
                 .stream()
                 .map(slot -> TimeSlotResponse
                         .builder()
+                        .id(slot.getTimeSlotId())
                         .dayOfWeek(slot.getDayOfWeek())
                         .startTime(slot.getStartTime())
                         .endTime(slot.getEndTime())
@@ -67,7 +67,6 @@ public class TimeSlotServiceImpl implements TimeSlotService{
                         .subjectId(slot.getSubject().getSubjectId())
                         .build())
                 .collect(Collectors.toList());
-        return timeSlots;
     }
 
     @Override
@@ -78,15 +77,14 @@ public class TimeSlotServiceImpl implements TimeSlotService{
                         "Time Slot with provided id not found",
                         "NOT_FOUND"));
 
-        var timeSlotResponse = TimeSlotResponse
+        return TimeSlotResponse
                 .builder()
+                .id(timeSlot.getTimeSlotId())
                 .startTime(timeSlot.getStartTime())
                 .endTime(timeSlot.getEndTime())
                 .subjectId(timeSlot.getTimeSlotId())
                 .frequency(timeSlot.getFrequency())
                 .dayOfWeek(timeSlot.getDayOfWeek())
                 .build();
-
-        return timeSlotResponse;
     }
 }

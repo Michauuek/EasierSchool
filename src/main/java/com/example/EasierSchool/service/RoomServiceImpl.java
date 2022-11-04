@@ -40,6 +40,7 @@ public class RoomServiceImpl implements RoomService{
 
         var roomResponse = RoomResponse
                 .builder()
+                .id(room.getRoomId())
                 .roomNumber(room.getRoomNumber())
                 .departmentName(roomRequest.getDepartmentName())
                 .subjectsId(Collections.emptyList())
@@ -59,6 +60,7 @@ public class RoomServiceImpl implements RoomService{
 
         var roomResponse = RoomResponse
                 .builder()
+                .id(room.getRoomId())
                 .roomNumber(room.getRoomNumber())
                 .departmentName(room.getDepartmentName())
                 .subjectsId(room
@@ -77,6 +79,7 @@ public class RoomServiceImpl implements RoomService{
                 .stream()
                 .map(room -> RoomResponse
                         .builder()
+                        .id(room.getRoomId())
                         .roomNumber(room.getRoomNumber())
                         .departmentName(room.getDepartmentName())
                         .subjectsId(room
