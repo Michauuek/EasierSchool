@@ -45,7 +45,7 @@ public class RoomServiceImpl implements RoomService{
                 .departmentName(roomRequest.getDepartmentName())
                 .subjectsId(Collections.emptyList())
                 .build();
-
+        log.info("Room response with id:{}", roomResponse.getId());
         return roomResponse;
     }
 
