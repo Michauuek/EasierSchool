@@ -42,7 +42,4 @@ public class Subject {
     @JoinColumn(name = "ROOM_ID")
     private Room room;
 
-    /*
-    TODO change response from Subject to SubjectResponse
-     */
 }
