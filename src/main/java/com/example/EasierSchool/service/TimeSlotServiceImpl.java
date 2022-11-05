@@ -6,6 +6,7 @@ import com.example.EasierSchool.model.TimeSlotRequest;
 import com.example.EasierSchool.model.TimeSlotResponse;
 import com.example.EasierSchool.repository.SubjectRepository;
 import com.example.EasierSchool.repository.TimeSlotRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Log4j2
 public class TimeSlotServiceImpl implements TimeSlotService{
 
     @Autowired
@@ -39,9 +41,10 @@ public class TimeSlotServiceImpl implements TimeSlotService{
                 .subject(subject)
                 .build();
 
+        log.info("Time slot id:{}", timeSlot.getTimeSlotId());
         timeSlotRepository.save(timeSlot);
 
-        return TimeSlotResponse
+        var timeSlotResponse = TimeSlotResponse
                 .builder()
                 .id(timeSlot.getTimeSlotId())
                 .startTime(timeSlotRequest.getStartTime())
@@ -50,6 +53,9 @@ public class TimeSlotServiceImpl implements TimeSlotService{
                 .frequency(timeSlotRequest.getFrequency())
                 .subjectId(subject.getSubjectId())
                 .build();
+
+        log.info("Time slot response id:{}", timeSlotResponse.getId());
+        return timeSlotResponse;
     }
 
     @Override

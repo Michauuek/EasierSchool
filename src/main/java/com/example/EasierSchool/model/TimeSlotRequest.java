@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.util.Date;
 
 @Data
+@Builder
 public class TimeSlotRequest {
     private DayOfWeek dayOfWeek;
     @DateTimeFormat(style = "HH:mm")

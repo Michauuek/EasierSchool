@@ -179,6 +179,10 @@ class SubjectServiceImplTest {
     }
 
     private Room getMockRoom(){
-        return new Room(5, "201B", "WIEIK", null);
+        return Room.builder()
+                .roomId(5)
+                .roomNumber("201B")
+                .departmentName("WIEIK")
+                .build();
     }
 }
