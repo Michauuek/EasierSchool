@@ -42,7 +42,7 @@ public class TeacherServiceImpl implements TeacherService{
                 .builder()
                 .name(teacherRequest.getName())
                 .surname(teacherRequest.getSurname())
-                .subjects(teacherSubjects.stream().collect(Collectors.toSet()))
+                .subjects(new HashSet<>(teacherSubjects))
                 .build();
         teacherRepository.save(teacher);
 

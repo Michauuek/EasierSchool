@@ -120,7 +120,7 @@ class SubjectServiceImplTest {
         verify(subjectRepository, times(2)).findByName(anyString());
     }
 
-    @DisplayName("Add Subject - Success Scenario")
+    @DisplayName("Get Subjects - Success Scenario")
     @Test
     void test_When_Get_Subjects_Success(){
         Subject subject = getMockSubject();

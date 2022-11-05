@@ -25,9 +25,6 @@ class RoomServiceImplTest {
     @Mock
     private RoomRepository roomRepository;
 
-    @Mock
-    private SubjectRepository subjectRepository;
-
     @InjectMocks
     RoomService roomService = new RoomServiceImpl();
 
