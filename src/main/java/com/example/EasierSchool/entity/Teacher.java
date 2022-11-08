@@ -1,5 +1,6 @@
 package com.example.EasierSchool.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,5 +28,6 @@ public class Teacher {
 
     @Column(name = "SUBJECTS")
     @OneToMany
+    @JsonIgnore
     private Set<Subject> subjects;
 }

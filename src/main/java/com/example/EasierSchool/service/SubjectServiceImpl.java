@@ -78,12 +78,12 @@ public class SubjectServiceImpl implements SubjectService{
 
         subjectRepository.save(subject);
 
-        var subjectTimeSlotsId = timeSlotRepository
+        /*var subjectTimeSlotsId = timeSlotRepository
                 .findAll()
                 .stream()
                 .filter(slot -> slot.getSubject().getSubjectId() == subject.getSubjectId())
                 .map(TimeSlot::getTimeSlotId)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
 
         return SubjectResponse
@@ -94,7 +94,6 @@ public class SubjectServiceImpl implements SubjectService{
                 .teacherId(subject.getTeacher().getTeacherId())
                 .type(subject.getType())
                 .roomId(subject.getRoom().getRoomId())
-                .timeSlotsId(subjectTimeSlotsId)
                 .build();
     }
 
@@ -110,12 +109,12 @@ public class SubjectServiceImpl implements SubjectService{
 
         log.info("Searching timeSlotsId for provided subject with id");
 
-        var subjectTimeSlotsId = timeSlotRepository
+        /*var subjectTimeSlotsId = timeSlotRepository
                 .findAll()
                 .stream()
                 .filter(slot -> slot.getSubject().getSubjectId() == subject.getSubjectId())
                 .map(TimeSlot::getTimeSlotId)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
         log.info("Creating response");
 
@@ -128,7 +127,6 @@ public class SubjectServiceImpl implements SubjectService{
                 .teacherId(subject.getTeacher().getTeacherId())
                 .type(subject.getType())
                 .roomId(subject.getRoom().getRoomId())
-                .timeSlotsId(subjectTimeSlotsId)
                 .build();
     }
 
@@ -150,11 +148,6 @@ public class SubjectServiceImpl implements SubjectService{
                         .studentGroup(subject.getStudentGroup())
                         .teacherId(subject.getTeacher().getTeacherId())
                         .roomId(subject.getRoom().getRoomId())
-                        .timeSlotsId(subject
-                                .getTimeSlots()
-                                .stream()
-                                .map(TimeSlot::getTimeSlotId)
-                                .collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
     }

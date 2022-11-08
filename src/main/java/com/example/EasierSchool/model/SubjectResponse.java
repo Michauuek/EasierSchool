@@ -19,5 +19,5 @@ public class SubjectResponse {
     private String studentGroup;
     private Long roomId;
     private Long teacherId;
-    private List<Long> timeSlotsId;
+    //private List<Long> timeSlotsId;
 }

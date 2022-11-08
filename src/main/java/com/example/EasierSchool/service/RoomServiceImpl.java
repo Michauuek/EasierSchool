@@ -43,8 +43,8 @@ public class RoomServiceImpl implements RoomService{
                 .id(room.getRoomId())
                 .roomNumber(room.getRoomNumber())
                 .departmentName(roomRequest.getDepartmentName())
-                .subjectsId(Collections.emptyList())
                 .build();
+
         log.info("Room response with id:{}", roomResponse.getId());
         return roomResponse;
     }
@@ -58,23 +58,17 @@ public class RoomServiceImpl implements RoomService{
                         "Room with provided id not found",
                         "NOT_FOUND"));
 
-        var roomResponse = RoomResponse
+        return RoomResponse
                 .builder()
                 .id(room.getRoomId())
                 .roomNumber(room.getRoomNumber())
                 .departmentName(room.getDepartmentName())
-                .subjectsId(room
-                        .getSubjects()
-                        .stream().map(Subject::getSubjectId)
-                        .collect(Collectors.toList()))
                 .build();
-
-        return roomResponse;
     }
 
     @Override
     public List<RoomResponse> getRooms() {
-        var roomResponse = roomRepository
+        return roomRepository
                 .findAll()
                 .stream()
                 .map(room -> RoomResponse
@@ -82,13 +76,7 @@ public class RoomServiceImpl implements RoomService{
                         .id(room.getRoomId())
                         .roomNumber(room.getRoomNumber())
                         .departmentName(room.getDepartmentName())
-                        .subjectsId(room
-                                .getSubjects()
-                                .stream()
-                                .map(Subject::getSubjectId)
-                                .collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
-        return roomResponse;
     }
 }

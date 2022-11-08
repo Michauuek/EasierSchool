@@ -15,5 +15,5 @@ public class RoomResponse {
     private Long id;
     private String roomNumber;
     private String departmentName;
-    private List<Long> subjectsId;
+    //private List<Long> subjectsId;
 }
