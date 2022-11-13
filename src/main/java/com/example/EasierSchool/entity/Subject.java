@@ -1,10 +1,7 @@
 package com.example.EasierSchool.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 public class Subject {
     @Id
@@ -33,7 +31,7 @@ public class Subject {
     @JoinColumn(name = "TEACHER_ID")
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<TimeSlot> timeSlots;
 
@@ -41,12 +39,5 @@ public class Subject {
     @JoinColumn(name = "ROOM_ID")
     private Room room;
 
-    @Override
-    public String toString() {
-        return "Subject{" +
-                "subjectId=" + subjectId +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                '}';
-    }
+
 }

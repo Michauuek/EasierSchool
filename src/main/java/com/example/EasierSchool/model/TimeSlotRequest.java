@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
 @Builder
 public class TimeSlotRequest {
     private DayOfWeek dayOfWeek;

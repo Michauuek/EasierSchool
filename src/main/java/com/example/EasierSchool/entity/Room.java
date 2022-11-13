@@ -27,7 +27,7 @@ public class Room {
     @Column(name = "DEPARTMENT")
     private String departmentName;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Subject> subjects;
 

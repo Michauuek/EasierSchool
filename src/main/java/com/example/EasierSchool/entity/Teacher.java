@@ -27,7 +27,7 @@ public class Teacher {
     private String surname;
 
     @Column(name = "SUBJECTS")
-    @OneToMany
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Subject> subjects;
 }
