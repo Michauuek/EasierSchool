@@ -24,7 +24,7 @@ public class RoomController {
     public ResponseEntity<RoomResponse> addRoom(@RequestBody RoomRequest roomRequest){
         var room = roomService
                 .addRoom(roomRequest);
-        return new ResponseEntity<>(room, HttpStatus.OK);
+        return new ResponseEntity<>(room, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

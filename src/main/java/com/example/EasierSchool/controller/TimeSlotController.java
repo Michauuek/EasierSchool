@@ -22,7 +22,7 @@ public class TimeSlotController {
         var timeSlot = timeSlotService
                 .addTimeSlot(timeSlotRequest);
 
-        return new ResponseEntity<>(timeSlot, HttpStatus.OK);
+        return new ResponseEntity<>(timeSlot, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

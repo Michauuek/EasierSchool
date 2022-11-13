@@ -23,7 +23,7 @@ public class TeacherController {
     public ResponseEntity<TeacherResponse> addTeacher(@RequestBody TeacherRequest teacherRequest){
         var teacher = teacherService
                 .addTeacher(teacherRequest);
-        return new ResponseEntity<>(teacher, HttpStatus.OK);
+        return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")

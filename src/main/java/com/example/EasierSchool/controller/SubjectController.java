@@ -23,7 +23,7 @@ public class SubjectController {
         var subject = subjectService
                 .addSubject(subjectRequest);
 
-        return new ResponseEntity<>(subject, HttpStatus.OK);
+        return new ResponseEntity<>(subject, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
