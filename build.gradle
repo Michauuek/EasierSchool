@@ -38,6 +38,18 @@ dependencyManagement {
 	}
 }
 
+jar {
+
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+	manifest {
+		attributes "Main-Class": "com.gradle.tutorial.FizzBuzzProcessor"
+	}
+
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
 
 tasks.named('test') {
 	useJUnitPlatform()
